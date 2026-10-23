@@ -1,0 +1,1 @@
+Trigger GitHub Pages deployment after enabling Pages from main / root.
