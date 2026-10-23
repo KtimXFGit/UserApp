@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f3f7fa" />
+  <title>TPD-03 智能剂量管理 - 手机APP演示</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;background:#e8eff3;color:#132f3d}
+    body{display:grid;place-items:center;padding:24px}
+    .demo-stage{width:100%;display:flex;justify-content:center;align-items:center}
+    .phone{width:414px;height:896px;border:10px solid #17242b;border-radius:48px;background:#f3f7fa;box-shadow:0 30px 70px rgba(12,35,46,.25);overflow:hidden;position:relative}
+    .speaker{position:absolute;z-index:8;top:9px;left:50%;transform:translateX(-50%);width:94px;height:24px;border-radius:0 0 16px 16px;background:#17242b}
+    .status-bar{height:44px;padding:8px 18px 5px;display:flex;align-items:flex-end;justify-content:space-between;background:#f3f7fa;color:#16313f;position:relative;z-index:6;font-size:12px;font-weight:800;letter-spacing:.01em}
+    .status-left{min-width:68px}.status-right{display:flex;align-items:center;gap:7px}
+    .signal{display:flex;align-items:flex-end;gap:2px;height:12px}.signal i{display:block;width:3px;border-radius:2px;background:#16313f}.signal i:nth-child(1){height:4px}.signal i:nth-child(2){height:6px}.signal i:nth-child(3){height:9px}.signal i:nth-child(4){height:12px}
+    .wifi{width:15px;height:11px;position:relative;overflow:hidden}.wifi:before,.wifi:after{content:"";position:absolute;left:50%;transform:translateX(-50%);border:2px solid #16313f;border-color:#16313f transparent transparent transparent;border-radius:50%}.wifi:before{width:16px;height:16px;top:1px}.wifi:after{width:9px;height:9px;top:5px}.wifi-dot{width:3px;height:3px;border-radius:50%;background:#16313f;position:absolute;bottom:0;left:6px}
+    .battery{width:23px;height:11px;border:1.6px solid #16313f;border-radius:3px;position:relative;padding:1.5px}.battery:after{content:"";position:absolute;right:-3.7px;top:3px;width:2px;height:5px;border-radius:0 2px 2px 0;background:#16313f}.battery-fill{height:100%;width:82%;background:#16313f;border-radius:1px}
+    .app-viewport{display:block;width:100%;height:calc(100% - 44px);border:0;background:#f3f7fa}
+    .home-indicator{position:absolute;z-index:10;bottom:6px;left:50%;transform:translateX(-50%);width:126px;height:4px;border-radius:999px;background:rgba(20,43,54,.78);pointer-events:none}
+    .hint{position:fixed;left:24px;bottom:20px;padding:9px 12px;border-radius:10px;background:rgba(9,48,66,.88);color:#dcebf1;font-size:11px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    @media(max-width:520px){body{padding:0;background:#f3f7fa;display:block}.phone{width:100vw;height:100dvh;min-height:100vh;border:0;border-radius:0;box-shadow:none}.speaker{display:none}.status-bar{padding-top:max(8px,env(safe-area-inset-top));height:calc(44px + env(safe-area-inset-top))}.app-viewport{height:calc(100% - 44px - env(safe-area-inset-top))}.home-indicator{display:none}.hint{display:none}}
+  </style>
+</head>
+<body>
+  <main class="demo-stage">
+    <section class="phone" aria-label="TPD-03 手机APP模拟器">
+      <div class="speaker" aria-hidden="true"></div>
+      <div class="status-bar" aria-label="手机状态栏">
+        <div class="status-left" id="phoneTime">18:03</div>
+        <div class="status-right">
+          <span style="font-size:10px;font-weight:850">5G</span>
+          <span class="signal" aria-label="信号强度"><i></i><i></i><i></i><i></i></span>
+          <span class="wifi" aria-label="Wi-Fi"><i class="wifi-dot"></i></span>
+          <span class="battery" aria-label="电量82%"><i class="battery-fill"></i></span>
+        </div>
+      </div>
+      <iframe class="app-viewport" src="app.html" title="TPD-03 智能剂量管理"></iframe>
+      <div class="home-indicator" aria-hidden="true"></div>
+    </section>
+  </main>
+  <div class="hint">TPD-03 APP 手机界面演示 · 页面可滚动并操作底部导航</div>
+  <script>
+    function updateClock(){
+      const d=new Date();
+      const hh=String(d.getHours()).padStart(2,'0');
+      const mm=String(d.getMinutes()).padStart(2,'0');
+      document.getElementById('phoneTime').textContent=`${hh}:${mm}`;
+    }
+    updateClock(); setInterval(updateClock,30000);
+  </script>
+</body>
+</html>
